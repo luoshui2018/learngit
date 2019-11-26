@@ -33,6 +33,6 @@ git reset --hard head^			-- HEAD指向的版本就是当前版本，上一个版
 git log [--pretty=oneline]			-- 查看提交历史
 git reflog					-- 查看命令历史
 git diff head -- file1				-- 查看工作区和版本库最新版本区别
-
+git --version				-- 查看git版本
 
 	
