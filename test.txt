@@ -17,18 +17,31 @@
 -----------------------------------------------------------------------------
 git常用命令
 -----------------------------------------------------------------------------
-git init 												-- 创建git库
-git add file1[ file2 file3 ...]/git add ./git add * 	-- 添加file1[ file2 file3 ...]到暂存区/添加当前文件夹所有的文件到暂存区/添加所有文件到暂存区
-git commit -m 'xxx'										-- 提交更改，实际上就是把暂存区的所有内容提交到当前分支。
-git status 												-- 查看工作区状态
-git reset --hard commit_id								-- 切换版本
-git reset --hard head^									-- HEAD指向的版本就是当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，以此类推
-git log [--pretty=oneline]								-- 查看提交历史
-git reflog												-- 查看命令历史
-git diff head -- file1									-- 查看工作区和版本库最新版本区别
-git --version											-- 查看git版本
-git reset HEAD file1									-- 把暂存区的修改撤销掉（unstage），重新放回工作区
-git checkout -- file1									-- 撤销file1在工作区的修改
+git init 														-- 创建git库
+git add file1[ file2 file3 ...]/git add ./git add * 			-- 添加file1[ file2 file3 ...]到暂存区/添加当前文件夹所有的文件到暂存区/添加所有文件到暂存区
+git rm file1													-- 把file1从版本库删除
+git commit -m 'xxx'												-- 提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+git status 														-- 查看工作区状态
+git reset --hard commit_id										-- 切换版本
+git reset --hard head^											-- HEAD指向的版本就是当前版本，上一个版本就是HEAD^，上上一个版本就是HEAD^^，以此类推
+git log [--pretty=oneline]										-- 查看提交历史
+git reflog														-- 查看命令历史
+git diff head -- file1											-- 查看工作区和版本库最新版本区别
+git --version													-- 查看git版本
+git reset HEAD file1											-- 把暂存区的修改撤销掉（unstage），重新放回工作区
+git checkout -- file1											-- 撤销file1在工作区的修改[包括删除]
+
+git remote add origin git@github.com:luoshui2018/learngit.git	-- 把本地仓库的内容推送到GitHub仓库。
+git push [-u] origin master										-- 把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。
+git clone git地址												-- 克隆远程库至本地 Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。
+
+git checkout -b dev <=>git branch dev;git checkout dev			-- 创建dev分支并且切换到dev分支
+git branch														-- 查看当前分支，命令会列出所有分支，当前分支前面会标一个*号。
+git merge dev													-- 把dev分支的工作合并到master上[切换到master分支再执行合并操作]
+git branch -d dev												-- 删除dev分支
+
+
+
 -----------------------------------------------------------------------------
 工作区：就是电脑中看到的目录	版本库：工作区中的隐藏目录.git
 -------------------------------------------------------------------------------------------
@@ -42,4 +55,9 @@ git checkout -- file1									-- 撤销file1在工作区的修改
 
 场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，用版本回退命令，不过前提是没有推送到远程库。
 -------------------------------------------------------------------------------------------
-
+要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；
+远程库的名字就是origin，这是Git默认的叫法，也可以改成别的，但是origin这个名字一看就知道是远程库。
+关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，
+还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
